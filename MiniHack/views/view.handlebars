@@ -1,0 +1,35 @@
+<div class="main-score">
+    <input type="hidden" id="noRound" value="{{rounds.length}}">
+    <table id="customers">
+        <tbody>
+            <tr style="font-weight: bold; background: #FBFEF9;">
+                <td></td>
+                {{#each names}}
+                <td>{{this.name}}</td>
+                {{/each}}
+            </tr>
+            <tr>
+                <th style="width: 20%;">Sum of Score(0)</th>
+                {{#each total}}
+                    <th>{{this}}</th>
+                {{/each}}
+            </tr>
+            {{#each rounds}}
+            <tr>
+                <td>Round {{this.noRound}}
+                    <input type="hidden" id="idRound" value="{{this._id}}">
+                    <input type="hidden" id="idGame" value="{{this.idGame}}">
+                </td>
+                {{#each this.score}}
+                <td>
+                    <input type="number" class="change" value="{{this}}" data-round="{{../this._id}}" data-index="{{@index}}" required="">
+                </td>
+                {{/each}}
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div class="addround">
+        <input type="button" value="ADD ROUND" onclick="addRound()">
+    </div>
+</div>
