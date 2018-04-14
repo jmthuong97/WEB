@@ -40,11 +40,10 @@ let updateScore = (idRound, score, index) => {
     let arrayScore;
     roundSchema.findOne({ _id: idRound }, function (err, obj) {
         if (err) { console.log(err) };
-        obj.score[index] = score;
-        console.log(obj)
-        roundSchema.findByIdAndUpdate(idRound, { $set: { score: obj.score } }, { upsert: true }, function (err, result) {
-            if (err) { console.log(err) };
-            console.log(result)
+        obj.score[index] = parseInt(score);
+        obj.markModified('score');
+        obj.save(function () {
+            console.log('done');
         });
     });
 }

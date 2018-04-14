@@ -65,6 +65,7 @@ app.post('/newgame', (req, res) => {
 app.post('/updateScore', (req, res) => {
     let objectData = JSON.parse(req.body.o);
     round.updateScore(objectData.idRound, objectData.score, objectData.index);
+    res.end();
 });
 
 app.post('/createRound', (req, res) => {
