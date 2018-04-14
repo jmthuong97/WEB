@@ -70,8 +70,8 @@ app.post('/updateScore', (req, res) => {
 app.post('/createRound', (req, res) => {
     let objectData = JSON.parse(req.body.o);
     round.createRound(objectData.idGame, objectData.noRound, (idRound) => {
-        console.log('hrereere' + idRound)
         game.addRounds(objectData.idGame, idRound);
+        res.json({ idRound });
     });
 });
 

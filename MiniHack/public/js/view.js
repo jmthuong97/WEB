@@ -10,7 +10,7 @@ numInputs.forEach(function (input) {
 
 $(document).ready(function () {
 
-    $('.change').on('input', function (event) {
+    $('#customers').on('change', '.change', function (event) {
         var indexCells = parseInt(event.target.dataset.index) + 1;
         var rowCount = $('#customers tr').length;
         var total = 0;
@@ -21,7 +21,7 @@ $(document).ready(function () {
         document.getElementById("customers").rows[1].cells[indexCells].innerHTML = total;
     });
 
-    $('.change').on('input', _.debounce(function (event) {
+    $('#customers').on('change', '.change', _.debounce(function (event) {
         var objectData = {
             idRound: event.target.dataset.round,
             index: event.target.dataset.index,
@@ -41,28 +41,13 @@ $(document).ready(function () {
     }, 100));
 });
 
-async function addRound() {
+function addRound() {
     var table = document.getElementById("customers");
     var row = table.insertRow(-1);
     // create first cell
     var count = ++document.getElementById("noRound").value;
     var cell0 = row.insertCell(0);
     cell0.innerHTML = "Round " + count;
-    // create next cell
-    var idRound = document.getElementById("idRound").value;
-    for (let i = 0; i < 4; i++) {
-        // create input
-        var input = document.createElement("input");
-        input.type = 'number';
-        input.className = 'change';
-        input.value = 0;
-        input.setAttribute('data-index', i);
-        input.setAttribute('data-round', idRound);
-        input.required = 'required';
-        // create next cell
-        var nextcell = row.insertCell(i + 1);
-        nextcell.appendChild(input);
-    }
     // send req to create new round
     var idGame = document.getElementById("idGame").value;
     var objectData = {
@@ -70,16 +55,31 @@ async function addRound() {
         noRound: count
     }
     var objectDataString = JSON.stringify(objectData);
-    console.log(objectDataString)
-    await $.ajax({
+    $.ajax({
         type: "POST",
         url: "/createRound",
         dataType: "json",
         data: {
             o: objectDataString
         },
+        success: function (res) {
+            // create next cell
+            for (let i = 0; i < 4; i++) {
+                // create input
+                var input = document.createElement("input");
+                input.type = 'number';
+                input.className = 'change';
+                input.value = 0;
+                input.setAttribute('data-index', i);
+                input.setAttribute('data-round', res.idRound);
+                input.required = 'required';
+                // create next cell
+                var nextcell = row.insertCell(i + 1);
+                nextcell.appendChild(input);
+            }
+        },
     });
-    location.reload();
+    // window.location.reload();
 }
 
 
