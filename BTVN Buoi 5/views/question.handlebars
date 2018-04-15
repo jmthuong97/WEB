@@ -1,0 +1,15 @@
+<div class="main-ask">
+    <h1 id="title">{{content}}</h1>
+    <div class="answer">
+        <form method="post" action="/answer">
+            <input name="idQuestion" type="hidden" value="{{id}}">
+            <input name="answer" type="hidden" value="true">
+            <input class="button-true" type="submit" value="Đúng/Có">
+        </form>
+        <form method="post" action="/answer">
+            <input name="idQuestion" type="hidden" value="{{id}}">
+            <input name="answer" type="hidden" value="false">
+            <input class="button-false" type="submit" value="Sai/Không">
+        </form>
+    </div>
+</div>

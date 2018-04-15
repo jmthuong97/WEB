@@ -1,0 +1,158 @@
+/* ================= Reset Css ======================= */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ================================= */
+
+.menu{
+    background-color: #4CAF50;
+    font-weight: bold;
+    text-align: center;
+}
+
+.menu span{
+    position: relative;
+    display: inline-block;
+    height: 30px;
+    width: 100px;
+    line-height: 30px;
+    color: #fff;
+}
+
+.menu span:hover{
+    background-color: #E6E6E7;
+    color: #484848;
+}
+
+/* ====================== For main ask ================== */
+
+body{
+    background:#333 url(https://static.tumblr.com/maopbtg/a5emgtoju/inflicted.png) repeat;
+}
+
+.main-ask{
+    text-align: center;
+}
+
+#text {
+	width:500px;
+	overflow:hidden;
+	background-color:#FFF;
+	color:#222;
+	font-family:Courier, monospace;
+	font-weight:normal;
+	font-size:24px;
+	resize:none;
+	line-height:40px;
+	padding-left:100px;
+	padding-right:100px;
+	padding-top:45px;
+	padding-bottom:34px;
+	background-image:url(https://static.tumblr.com/maopbtg/E9Bmgtoht/lines.png), url(https://static.tumblr.com/maopbtg/nBUmgtogx/paper.png);
+	background-repeat:repeat-y, repeat;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	-webkit-box-shadow: 0px 2px 14px #000;
+	box-shadow: 0px 2px 14px #000;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #FFF;
+}
+
+#title {
+	background-color:transparent;
+	border-bottom:3px solid #FFF;
+	color:#FFF;
+	font-size:20px;
+	font-family:Courier, monospace;
+    font-weight:bold;
+    margin: 15px 0;
+}
+
+/* ================== FOR Button CSS =================== */
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.answer{
+	margin: auto;
+	display: flex;
+	justify-content: center;
+}
+
+.button-true{
+	order: 1;
+	background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 20px;
+    cursor: pointer;
+}
+
+.button-false{
+	order: 2;
+	background-color: #6E0808;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 20px;
+    cursor: pointer;
+}
