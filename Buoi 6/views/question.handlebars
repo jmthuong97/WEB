@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="text-center" id="text_question">{{content}}</h1>
+  <form action='/vote/{{id}}' method="post">
+    <div class="row text-center" id="btn_answer">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary btn-lg" name="answer" value="true">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+          Đúng / Có / Phải
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-danger btn-lg" name="answer" value="false">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+          Sai / Không / Trái
+        </button>
+      </div>
+    </div>
+    <div class="row text-center" id="btn_chuyen">
+      <button type="submit" class="btn btn-default" name="btn_yesno" value="ketquavote">Kết quả vote</button>
+      <button type="submit" class="btn btn-default" name="btn_yesno" value="cauhoikhac">Câu hỏi khác</button>
+    </div>
+  </form>
+</div>

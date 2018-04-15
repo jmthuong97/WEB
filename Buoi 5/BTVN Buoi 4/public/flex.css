@@ -1,0 +1,44 @@
+
+body{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+body>*{
+    flex: 1 100%;
+}
+
+.header {
+    background-color: #0000ff;
+    text-align: center;
+    width: 100%;
+}
+
+.nav {
+    background-color: #800080;
+    text-align: center;
+}
+
+.main {
+    min-width: 60%;
+    height: auto;
+    background-color: #ffd700;
+    text-align: center;
+    flex: 1;
+}
+
+.aside {
+    min-width: 40%;
+    height: auto;
+    background-color: #808080;
+    text-align: center;
+    flex: 2;
+}
+
+.footer {
+    clear: both;
+    background-color: #00ffff;
+    text-align: center;
+    order: 3;
+}
+
