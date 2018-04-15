@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 class="text-center" id="text_question"></h1>
+  <form id="vote" action='/vote/' method="post">
+    <div class="row text-center" id="btn_answer">
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-primary btn-lg" name="answer" value="true">
+          <span class="glyphicon glyphicon-thumbs-up"></span>
+          Đúng / Có / Phải
+        </button>
+      </div>
+      <div class="col-md-6">
+        <button type="submit" class="btn btn-danger btn-lg" name="answer" value="false">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+          Sai / Không / Trái
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="row text-center" id="btn_chuyen">
+    <a class="btn btn-default" href="">Kết quả vote</a>
+    <a id="otherQuestion" class="btn btn-default" href="">Câu hỏi khác</a>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("#otherQuestion").click(function (event) {
+      event.preventDefault();
+      console.log("xx");
+      $.ajax({
+        url: '/',
+        method: 'POST',
+        success: function (res) {
+          $("#text_question").html(res.doc.questionContent);
+          $('#vote').attr('action', "/vote/" + res.doc._id);
+        }
+      });
+    });
+  });
+</script>
