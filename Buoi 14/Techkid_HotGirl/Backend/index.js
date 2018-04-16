@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 const imageRouter = require('./model/api/images/route');
+const userRouter = require('./model/api/users/route');
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -12,6 +13,8 @@ app.use(bodyParser.urlencoded({
 
 
 app.use('/api/images', imageRouter);
+
+app.use('/api/users', userRouter);
 
 app.get('/', (req, res) => {
     res.send('OK');

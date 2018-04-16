@@ -49,6 +49,15 @@ router.post('/:imageId/comment', (req, res) => {
         });
 });
 
+router.delete('/:id/comment/:commentid', (req, res) => {
+    imageController.deleteComment(req.params.id, req.params.commentid)
+        .then(_id => res.send(_id))
+        .catch(err => {
+            console.log(err);
+            res.status(500).send(err);
+        });
+});
+
 router.put('/:id', (req, res) => {
     imageController.updateImage(req.params.id, req.body)
         .then(id => res.send(id))

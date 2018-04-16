@@ -38,9 +38,6 @@ const getImage = id => new Promise((resolve, reject) => {
             "active": true,
             _id: id
         })
-        .sort({
-            createAt: -1
-        })
         .select("_id imageUrl title description createdAt createBy view like comment")
         .exec()
         .then(data => resolve(data))
@@ -92,12 +89,14 @@ const addComment = (imageId, {
             .catch(err => reject(err))
     });
 
-const deleteComment = id => new Promise((resolve, reject) => {
-    imageModel.findOneAndUpdate({
-            _id: id
+const deleteComment = (idImage, idComment) => new Promise((resolve, reject) => {
+    imageModel.update({
+            _id: idImage
         }, {
-            $inc: {
-                'like': 1
+            $pull: {
+                comment: {
+                    _id: idComment
+                }
             }
         })
         .then(data => resolve(data))
@@ -128,10 +127,6 @@ const unlikeImage = id => new Promise((resolve, reject) => {
         .catch(err => reject(err))
 });
 
-// TODO like image
-// TODO unlike image
-// TODO delete comment
-
 module.exports = {
     createImage,
     getAllImages,
@@ -139,6 +134,7 @@ module.exports = {
     updateImage,
     deleteImage,
     addComment,
+    deleteComment,
     likeImage,
     unlikeImage
 }
