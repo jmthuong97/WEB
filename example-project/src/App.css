@@ -1,0 +1,27 @@
+body{
+	background: #bababa;
+}
+.navbar {
+	position: relative;
+	border: none;
+	background: #ffffff;
+}
+.container-fluid {
+	height: 100%;
+}
+.stylish-input-group .input-group-addon {
+	background: white !important;
+	border-radius: unset;
+}
+.stylish-input-group .form-control {
+	box-shadow: 0 0 0;
+	border-color: #ccc;
+	border-radius: unset;
+}
+.stylish-input-group button {
+	border: 0;
+	background: transparent;
+}
+.input-group-addon{
+	margin: auto;
+}
