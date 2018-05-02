@@ -6,7 +6,7 @@ class Home extends Component {
     }
 
     handleChange = (index, value) =>{
-        const noPlayer = this.state.players.map((name, index) => pIndex == index ? );
+        // const noPlayer = this.state.players.map((name, index) => pIndex == index ? );
     }
     
     render() {
@@ -15,7 +15,7 @@ class Home extends Component {
                 type="text"
                 placeholder={`Player ${index+1} `}
                 value={name}
-
+                // as
             />
         })
         return (
