@@ -5,19 +5,25 @@ class Home extends Component {
         players: ["", "", "", ""],
     }
 
-    handleChange = (index, value) =>{
-        // const noPlayer = this.state.players.map((name, index) => pIndex == index ? );
+    handleChange = (index, value) => {
+        const noPlayer = this.state.players.map((name, pIndex) => pIndex === index ? value : name);
+        this.setState({ players: noPlayer })
     }
-    
+
+    send = () =>{
+        this.props.onCreateNewGame()
+        this.props.setName(this.state.players)
+    }
+
     render() {
-        const nameInput = this.state.players.map((name, index) =>{
-            <input
-                type="text"
-                placeholder={`Player ${index+1} `}
-                value={name}
-                // as
-            />
-        })
+        const nameInput = this.state.players.map((name, index) => (<input
+            type="text"
+            placeholder={`Player ${index + 1} `}
+            value={name}
+            onChange={(event) => this.handleChange(index, event.target.value)}
+        />)
+
+        )
         return (
             <div class="container-fluid">
                 <div class="row">
@@ -28,7 +34,8 @@ class Home extends Component {
                         </div>
                         <div class="main">
                             <form class="main-form">
-                                
+                                {nameInput}
+                                <button type="submit" name="submit" onClick={this.send} >CREATE NEW GAME</button>
                             </form>
                         </div>
                     </div>
@@ -36,11 +43,6 @@ class Home extends Component {
                 </div>
             </div>
         );
-    }
-
-    onSubmit = e => {
-        e.preventDefault();
-
     }
 }
 
