@@ -1,5 +1,0 @@
-{
-  "mongoPath": "mongodb://localhost:27017/MiniHack",
-  "sessionSecret": "himitsu",
-  "secureCookie": false
-}
