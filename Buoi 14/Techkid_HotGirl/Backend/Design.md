@@ -75,3 +75,8 @@ CRUD
     - Comment
         - Createby
         - Content
+
+
+### 5. Authentication/ Authorization
+- Authentication: Who you are
+- Authorization: What you can do

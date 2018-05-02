@@ -94,6 +94,15 @@ const deleteUser = id => new Promise((resolve, reject) => {
         .catch(err => reject(err))
 });
 
+const getUserForAuth = username => new Promise((resolve, reject) => {
+    userModel.findOne({
+            username
+        })
+        .select("username password _id")
+        .then(data => resolve(data))
+        .catch(err => reject(err))
+});
+
 module.exports = {
     createUser,
     getAllUsers,
@@ -102,5 +111,6 @@ module.exports = {
     updateUserEmail,
     updateUserAvatar,
     updateUserPassword,
-    deleteUser
+    deleteUser,
+    getUserForAuth
 }

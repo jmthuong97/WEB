@@ -30,7 +30,8 @@ const imageModel = new Schema({
         default: ""
     },
     createBy: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'users',
         require: true
     },
     view: {

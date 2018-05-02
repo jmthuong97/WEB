@@ -4,13 +4,13 @@ const createImage = ({
     imageUrl,
     title,
     description,
-    createBy
+    id
 }) => new Promise((resolve, reject) => {
     imageModel.create({
             imageUrl,
             title,
             description,
-            createBy
+            createBy: id
         })
         .then(data => resolve({
             id: data._id
@@ -27,7 +27,8 @@ const getAllImages = page => new Promise((resolve, reject) => {
         })
         .skip((page - 1) * 20)
         .limit(20)
-        .select("_id imageUrl title description createdAt createBy view like")
+        .select("_id imageUrl title description createdAt view like")
+        .populate("createdBy", "username avatar")
         .exec()
         .then(data => resolve(data))
         .catch(err => reject(err))

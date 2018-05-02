@@ -8,7 +8,11 @@ import MainContent from "./components/MainContent";
 
 class App extends Component {
   state = {
-    images: []
+    images: [],
+    currentPage: 0,
+
+    initializing: true
+
   };
 
   componentDidMount() {
@@ -24,6 +28,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      {this.state.initializing ? <Home /> : <Game />}
         <NavBar/>
         <MainContent images={this.state.images} />
       </div>
