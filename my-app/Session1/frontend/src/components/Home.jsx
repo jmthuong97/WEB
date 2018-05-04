@@ -22,7 +22,7 @@ class Home extends Component {
             value={name}
             onChange={(event) => this.handleChange(index, event.target.value)}
         />)
-
+            // update
         )
         return (
             <div class="container-fluid">
