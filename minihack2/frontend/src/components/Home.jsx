@@ -12,8 +12,7 @@ class Home extends Component {
     }
 
     send = () => {
-        this.props.onCreateNewGame()
-        this.props.setName(this.state.players)
+        this.props.onCreateNewGame(this.state.players)
     }
 
     render() {

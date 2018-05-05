@@ -18,7 +18,7 @@ class Game extends Component {
             }
             return roundIndex
         })
-        console.log(rounds)
+        // console.log(rounds)
         this.setState({ rounds: rounds })
     }
 
@@ -39,6 +39,30 @@ class Game extends Component {
                 document.getElementById("customers").rows[1].cells[indexCells].innerHTML = total;
             });
         });
+        // $('#customers').on('change', '.change', function (event) {
+        //     var rowCount = $('#customers tr').length;
+        //     for (var i = 2; i < rowCount; i++) {
+        //         let total = 0;
+        //         for (var j = 1; j <= 4; j++) {
+        //             var x = document.getElementById("customers").rows[i].cells[j].children[0].value;
+        //             total = parseInt(total, 10) + parseInt(x, 10);
+        //         }
+        //         if (total !== 0) {
+        //             this.parentElement.parentElement.title = 'Tổng điểm của 4 người chưa bằng 0, vui lòng nhập lại'
+        //             this.parentElement.parentElement.style.backgroundColor = '#F0ADA2'
+        //         }
+        //         else {
+        //             this.parentElement.parentElement.removeAttribute('title')
+        //             if (i % 2 === 0) {
+        //                 this.parentElement.parentElement.style.backgroundColor = '#F2F2F2'
+        //             }else{
+        //                 this.parentElement.parentElement.style.backgroundColor = '#FFFFFF'
+        //             }
+        //         }
+
+        //         // this.parentElement.parentElement.style.backgroundColor = '#F0ADA2'
+        //     }
+        // });
     }
 
     render() {
