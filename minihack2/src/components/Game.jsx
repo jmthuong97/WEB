@@ -12,6 +12,7 @@ class Game extends Component {
     handleScoreChange = (roundInput, scoreIndex, value) => {
         const rounds = this.state.rounds.map((roundIndex, index) => {
             if (roundInput === index) {
+                value = value === '' ? 0 : value
                 const scores = roundIndex.map((score, vtScore) => vtScore === scoreIndex ? value : score)
                 return scores
             }
