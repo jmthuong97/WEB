@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { withRouter } from 'react-router-dom';
 class Home extends Component {
 
     state = {
@@ -11,8 +11,15 @@ class Home extends Component {
         this.setState({ players: noPlayer })
     }
 
-    send = () => {
+    send = (e) => {
+        e.preventDefault()
         this.props.onCreateNewGame(this.state.players)
+    }
+
+    componentWillReceiveProps = (props) => {
+        if (props.idGame) {
+            this.props.history.push(`/games/${props.idGame}`);
+        }
     }
 
     render() {
@@ -28,6 +35,7 @@ class Home extends Component {
 
         return (
             <div className="container-fluid">
+                {this.props.renderRedirection}
                 <div className="row">
                     <div className="col-sm-3"></div>
                     <div className="col-sm-6">
@@ -48,4 +56,4 @@ class Home extends Component {
     }
 }
 
-export default Home;
+export default withRouter(Home);

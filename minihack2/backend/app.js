@@ -52,7 +52,8 @@ app.get('/games/:id', (req, res) => {
             res.send({
                 names: game.users,
                 rounds: game.rounds,
-                total: point
+                total: point,
+                sumOfScore: point.reduce((a, b) => a + b, 0)
             })
         }
     });
@@ -77,15 +78,13 @@ app.post('/newgame', (req, res) => {
 });
 
 app.post('/updateScore', (req, res) => {
-    let objectData = JSON.parse(req.body.o);
-    round.updateScore(objectData.idRound, objectData.score, objectData.index);
+    round.updateScore(req.body.idGame, req.body.indexRound, req.body.score, req.body.index);
     res.end();
 });
 
 app.post('/createRound', (req, res) => {
-    let objectData = JSON.parse(req.body.o);
-    round.createRound(objectData.idGame, objectData.noRound, (idRound) => {
-        game.addRounds(objectData.idGame, idRound);
+    round.createRound(req.body.idGame, (idRound) => {
+        game.addRounds(req.body.idGame, idRound);
         res.json({
             idRound
         });

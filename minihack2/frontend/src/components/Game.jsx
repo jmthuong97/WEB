@@ -1,73 +1,73 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+// import $ from 'jquery';
+import axios from '../axios'
+
 
 class Game extends Component {
 
     state = {
-        rounds: [
-            [0, 0, 0, 0]
-        ]
+        rounds: [],
+        players: ["", "", "", ""],
+        pointRound: [],
+        sumOfScore: ""
     }
 
-    handleScoreChange = (roundInput, scoreIndex, value) => {
+    handleScoreChange = (roundNo, scoreIndex, value) => {
         const rounds = this.state.rounds.map((roundIndex, index) => {
-            if (roundInput === index) {
+            if (roundNo === index) {
                 value = value === '' ? 0 : value
                 const scores = roundIndex.map((score, vtScore) => vtScore === scoreIndex ? value : score)
                 return scores
             }
             return roundIndex
         })
-        // console.log(rounds)
-        this.setState({ rounds: rounds })
+        // =======
+        var totalColumn = 0;
+        console.log(this.state.rounds.length)
+        for (var i = 2; i < this.state.rounds.length + 2; i++) {
+            var x = document.getElementById("customers").rows[i].cells[scoreIndex + 1].children[0].value;
+            totalColumn = parseInt(totalColumn, 10) + parseInt(x, 10);
+        }
+        document.getElementById("customers").rows[1].cells[scoreIndex + 1].innerHTML = totalColumn;
+        // ===========
+        axios.post('/updateScore', {
+            idGame: this.props.match.params.id,
+            indexRound: roundNo,
+            score: value,
+            index: scoreIndex
+        })
+        this.setState({ 
+            rounds: rounds
+        })
     }
 
     addRound = () => {
+        console.log(this.props.match.params.id)
+        axios.post('/createRound', {
+            idGame: this.props.match.params.id
+        })
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
         this.setState({ rounds: [...this.state.rounds, [0, 0, 0, 0]] })
     }
 
     componentDidMount() {
-        $(document).ready(function () {
-            $('#customers').on('change', '.change', function (event) {
-                var indexCells = parseInt(event.target.dataset.index, 10) + 1;
-                var rowCount = $('#customers tr').length;
-                var total = 0;
-                for (var i = 2; i < rowCount; i++) {
-                    var x = document.getElementById("customers").rows[i].cells[indexCells].children[0].value;
-                    total = parseInt(total, 10) + parseInt(x, 10);
-                }
-                document.getElementById("customers").rows[1].cells[indexCells].innerHTML = total;
-            });
-        });
-        // $('#customers').on('change', '.change', function (event) {
-        //     var rowCount = $('#customers tr').length;
-        //     for (var i = 2; i < rowCount; i++) {
-        //         let total = 0;
-        //         for (var j = 1; j <= 4; j++) {
-        //             var x = document.getElementById("customers").rows[i].cells[j].children[0].value;
-        //             total = parseInt(total, 10) + parseInt(x, 10);
-        //         }
-        //         if (total !== 0) {
-        //             this.parentElement.parentElement.title = 'Tổng điểm của 4 người chưa bằng 0, vui lòng nhập lại'
-        //             this.parentElement.parentElement.style.backgroundColor = '#F0ADA2'
-        //         }
-        //         else {
-        //             this.parentElement.parentElement.removeAttribute('title')
-        //             if (i % 2 === 0) {
-        //                 this.parentElement.parentElement.style.backgroundColor = '#F2F2F2'
-        //             }else{
-        //                 this.parentElement.parentElement.style.backgroundColor = '#FFFFFF'
-        //             }
-        //         }
-
-        //         // this.parentElement.parentElement.style.backgroundColor = '#F0ADA2'
-        //     }
-        // });
+        axios.get(`/games/${this.props.match.params.id}`)
+            .then(data => {
+                const getround = data.data.rounds.map((roundIndex) => roundIndex.score)
+                this.setState({ 
+                    players: data.data.names, 
+                    rounds: getround, 
+                    pointRound: data.data.total,
+                    sumOfScore: data.data.sumOfScore
+                })
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
-        const namePlayer = this.props.players.map((name, index) => (
-            <td key={index}>{name}</td>
+        const namePlayer = this.state.players.map((name, index) => (
+            <td key={index}>{name.name}</td>
         ))
 
         const rounds = this.state.rounds.map((roundIndex, index) => {
@@ -81,6 +81,8 @@ class Game extends Component {
                 {scores}
             </tr>);
         })
+
+        const pointRound = this.state.pointRound.map((point, index) => (<th key={index}>{point}</th>))
 
         return (
             <div className="container-fluid" id="app">
@@ -99,11 +101,8 @@ class Game extends Component {
                                             {namePlayer}
                                         </tr>
                                         <tr>
-                                            <th>Sum of Score(0)</th>
-                                            <th>0</th>
-                                            <th>0</th>
-                                            <th>0</th>
-                                            <th>0</th>
+                                            <th>Sum of Score({this.state.sumOfScore})</th>
+                                            {pointRound}
                                         </tr>
                                         {rounds}
                                     </tbody>

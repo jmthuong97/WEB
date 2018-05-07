@@ -5,29 +5,40 @@ import axios from './axios'
 import Home from './components/Home';
 import Game from './components/Game';
 
+import { BrowserRouter, Route } from 'react-router-dom';
 
 class App extends Component {
   state = {
     players: ["", "", "", ""],
-    initializing: true
+    idGame: null,
   }
 
   _onCreateNewGame = (players) => {
-    this.setState({ initializing: false })
-    this.setState({ players: players })
-    console.log(players)
+    // console.log(players)
     axios.post('/newgame', {
       players: players
     })
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data)
+        this.setState({ idGame: data.data, players: players })
+      })
       .catch(err => console.log(err))
   }
 
   render() {
     return (
-      <div>
-        {this.state.initializing ? <Home onCreateNewGame={this._onCreateNewGame} /> : <Game players={this.state.players} />}
-      </div>
+      <BrowserRouter>
+        <div>
+          <Route exact path="/" render={(props) => {
+            return <Home onCreateNewGame={this._onCreateNewGame} idGame={this.state.idGame} />
+          }} />
+          <Route path="/games/:id" component={Game} />
+
+
+          {/* <Redirect to={`/games/${this.state.idGame}`} */}
+          {/* <span>{`/games/${this.state.idGame}`}</span> */}
+        </div>
+      </BrowserRouter>
     );
   }
 }

@@ -1,11 +1,12 @@
 const roundSchema = require("../models/RoundSchema");
+const gameSchema = require("../models/GameSchema");
+
 const mongoose = require('mongoose');
 
 let createRoundFirst = (score, callback) => {
     // create new round first
     let newRound = {
         idGame: 0,
-        noRound: 1,
         score: score
     }
     roundSchema.create(newRound, function (err, round) {
@@ -16,11 +17,10 @@ let createRoundFirst = (score, callback) => {
     });
 };
 
-let createRound = (idGame, noRound, callback) => {
+let createRound = (idGame, callback) => {
     // create new round
     let newRound = {
         idGame: idGame,
-        noRound: noRound,
         score: [0, 0, 0, 0]
     }
     console.log(newRound)
@@ -39,28 +39,35 @@ let updateRound = (id, idRound) => {
             idGame: id
         }
     }, {
-        upsert: true
-    }, function (err, result) {
-        if (err) {
-            console.log(err)
-        };
-    });
+            upsert: true
+        }, function (err, result) {
+            if (err) {
+                console.log(err)
+            };
+        });
 }
 
-let updateScore = (idRound, score, index) => {
-    let arrayScore;
-    roundSchema.findOne({
-        _id: idRound
+let updateScore = (idGame, indexRound, score, index) => {
+    gameSchema.findOne({
+        _id: idGame
     }, function (err, obj) {
         if (err) {
             console.log(err)
         };
-        obj.score[index] = parseInt(score);
-        obj.markModified('score');
-        obj.save(function () {
-            console.log('done');
+        roundSchema.findOne({
+            _id: obj.rounds[indexRound]
+        }, function (err, obj) {
+            if (err) {
+                console.log(err)
+            };
+            obj.score[index] = parseInt(score);
+            obj.markModified('score');
+            obj.save(function () {
+                console.log('done');
+            });
         });
-    });
+    })
+    
 }
 
 
