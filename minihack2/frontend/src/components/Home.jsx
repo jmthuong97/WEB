@@ -35,7 +35,6 @@ class Home extends Component {
 
         return (
             <div className="container-fluid">
-                {this.props.renderRedirection}
                 <div className="row">
                     <div className="col-sm-3"></div>
                     <div className="col-sm-6">

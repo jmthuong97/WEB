@@ -8,57 +8,56 @@ class Game extends Component {
     state = {
         rounds: [],
         players: ["", "", "", ""],
-        pointRound: [],
+        scoreOfColumn: [],
         sumOfScore: ""
     }
 
     handleScoreChange = (roundNo, scoreIndex, value) => {
+        // update rounds
         const rounds = this.state.rounds.map((roundIndex, index) => {
             if (roundNo === index) {
                 value = value === '' ? 0 : value
-                const scores = roundIndex.map((score, vtScore) => vtScore === scoreIndex ? value : score)
+                const scores = roundIndex.map((score, vtScore) => vtScore === scoreIndex ? parseInt(value, 10) : score)
                 return scores
             }
             return roundIndex
         })
-        // =======
-        var totalColumn = 0;
-        console.log(this.state.rounds.length)
-        for (var i = 2; i < this.state.rounds.length + 2; i++) {
-            var x = document.getElementById("customers").rows[i].cells[scoreIndex + 1].children[0].value;
-            totalColumn = parseInt(totalColumn, 10) + parseInt(x, 10);
-        }
-        document.getElementById("customers").rows[1].cells[scoreIndex + 1].innerHTML = totalColumn;
-        // ===========
         axios.post('/updateScore', {
             idGame: this.props.match.params.id,
             indexRound: roundNo,
             score: value,
             index: scoreIndex
         })
-        this.setState({ 
-            rounds: rounds
+
+        // calculator total point in column
+        var editedValColumn = rounds.map((round, index) => {
+            return round[scoreIndex]
+        }).reduce((a, b) => a + b, 0) // calculator again that column edited value
+        const pointColumn = this.state.scoreOfColumn.map((score, index) => scoreIndex === index ? editedValColumn : score) // total point each coulmn
+
+        this.setState({
+            rounds: rounds,
+            scoreOfColumn: pointColumn,
+            sumOfScore: pointColumn.reduce((a, b) => a + b, 0)
         })
     }
 
     addRound = () => {
-        console.log(this.props.match.params.id)
         axios.post('/createRound', {
             idGame: this.props.match.params.id
         })
-            .then(data => console.log(data))
             .catch(err => console.log(err))
-        this.setState({ rounds: [...this.state.rounds, [0, 0, 0, 0]] })
+        this.setState({ rounds: [...this.state.rounds, [0, 0, 0, 0]] }) // add more to state
     }
 
     componentDidMount() {
         axios.get(`/games/${this.props.match.params.id}`)
             .then(data => {
                 const getround = data.data.rounds.map((roundIndex) => roundIndex.score)
-                this.setState({ 
-                    players: data.data.names, 
-                    rounds: getround, 
-                    pointRound: data.data.total,
+                this.setState({
+                    players: data.data.names,
+                    rounds: getround,
+                    scoreOfColumn: data.data.total,
                     sumOfScore: data.data.sumOfScore
                 })
             })
@@ -82,7 +81,7 @@ class Game extends Component {
             </tr>);
         })
 
-        const pointRound = this.state.pointRound.map((point, index) => (<th key={index}>{point}</th>))
+        const scoreOfColumn = this.state.scoreOfColumn.map((point, index) => (<th key={index}>{point}</th>))
 
         return (
             <div className="container-fluid" id="app">
@@ -102,7 +101,7 @@ class Game extends Component {
                                         </tr>
                                         <tr>
                                             <th>Sum of Score({this.state.sumOfScore})</th>
-                                            {pointRound}
+                                            {scoreOfColumn}
                                         </tr>
                                         {rounds}
                                     </tbody>

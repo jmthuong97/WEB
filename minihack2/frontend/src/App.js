@@ -33,10 +33,6 @@ class App extends Component {
             return <Home onCreateNewGame={this._onCreateNewGame} idGame={this.state.idGame} />
           }} />
           <Route path="/games/:id" component={Game} />
-
-
-          {/* <Redirect to={`/games/${this.state.idGame}`} */}
-          {/* <span>{`/games/${this.state.idGame}`}</span> */}
         </div>
       </BrowserRouter>
     );
