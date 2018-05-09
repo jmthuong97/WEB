@@ -1,0 +1,6 @@
+{
+    "mongoPath": "mongodb://jmthuong97:Anhthuong1@ds119350.mlab.com:19350/tk-hotgirl",
+    "sessionSecret": "himitsu",
+    "secureCookie": true
+  }
+  
